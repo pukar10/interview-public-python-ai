@@ -1,0 +1,1 @@
+{"properties":{"message":{"type":"string","title":"Message"},"conversation_id":{"anyOf":[{"type":"integer"},{"type":"null"}],"title":"Conversation Id"}},"type":"object","required":["message"],"title":"ChatRequest","x-readme-ref-name":"ChatRequest"}

@@ -1,0 +1,40 @@
+{
+  "name": "frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@kubb/core": "^3.18.3",
+    "@kubb/plugin-client": "^3.18.3",
+    "@kubb/plugin-oas": "^3.18.3",
+    "@kubb/plugin-react-query": "^3.18.3",
+    "@kubb/plugin-ts": "^3.18.3",
+    "@tanstack/query-devtools": "^5.87.3",
+    "@tanstack/react-query": "^5.89.0",
+    "@tanstack/react-query-devtools": "^5.89.0",
+    "@trussworks/react-uswds": "^10.0.2",
+    "@uswds/uswds": "^3.13.0",
+    "axios": "^1.12.2",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.33.0",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "@vitejs/plugin-react": "^5.0.0",
+    "eslint": "^9.33.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.3.0",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.39.1",
+    "vite": "^7.1.2"
+  }
+}

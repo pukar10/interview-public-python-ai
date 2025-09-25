@@ -1,0 +1,1 @@
+{"properties":{"role":{"type":"string","enum":["user","assistant","system"],"title":"MessageRole","x-readme-ref-name":"MessageRole"},"content":{"type":"string","title":"Content"}},"type":"object","required":["role","content"],"title":"MessageCreate","x-readme-ref-name":"MessageCreate"}

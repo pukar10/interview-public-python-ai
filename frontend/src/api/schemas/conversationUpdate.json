@@ -1,0 +1,1 @@
+{"properties":{"title":{"anyOf":[{"type":"string"},{"type":"null"}],"title":"Title"}},"type":"object","title":"ConversationUpdate","x-readme-ref-name":"ConversationUpdate"}
