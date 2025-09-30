@@ -1,4 +1,32 @@
 ############################
+# local variables
+############################
+locals {
+  ssh_pubkey = trimspace(file(pathexpand(var.ssh_public_key_path)))
+
+  ssh_pwauth = var.admin_password == null ? "false" : "true"
+
+  cloud_init = <<-YAML
+    package_update: true
+    package_upgrade: false
+    packages:
+      - python3
+      - python3-pip
+      - curl
+      - git
+    users:
+      - name: ${var.admin_username}
+        sudo: ALL=(ALL) NOPASSWD:ALL
+        groups: sudo
+        shell: /bin/bash
+        ssh_authorized_keys:
+          - ${local.ssh_pubkey}
+    ssh_pwauth: ${local.ssh_pwauth}
+  YAML
+}
+
+
+############################
 # Resource Group
 ############################
 resource "azurerm_resource_group" "rg" {
@@ -6,6 +34,7 @@ resource "azurerm_resource_group" "rg" {
   location = var.location
   tags     = { project = var.project }
 }
+
 
 ############################
 # Networking
@@ -24,6 +53,7 @@ resource "azurerm_subnet" "subnet" {
   address_prefixes     = [var.subnet_cidr]
 }
 
+
 ############################
 # Public IP
 ############################
@@ -36,8 +66,9 @@ resource "azurerm_public_ip" "pip" {
   tags                = { project = var.project }
 }
 
+
 ############################
-# NSG
+# Network Security Groups
 ############################
 resource "azurerm_network_security_group" "nsg" {
   name                = "${var.project}-nsg"
@@ -83,6 +114,7 @@ resource "azurerm_network_security_group" "nsg" {
   tags = { project = var.project }
 }
 
+
 ############################
 # NIC
 ############################
@@ -106,46 +138,6 @@ resource "azurerm_network_interface_security_group_association" "nic_nsg" {
   network_security_group_id = azurerm_network_security_group.nsg.id
 }
 
-############################
-# SSH key (read local file)
-############################
-data "local_file" "ssh_pubkey" {
-  filename = var.ssh_public_key_path
-}
-
-############################
-# Cloud-init (inline)
-############################
-locals {
-  ssh_pwauth = var.admin_password == null ? "false" : "true"
-
-  cloud_init = <<-YAML
-    #cloud-config
-    package_update: true
-    package_upgrade: false
-    packages:
-      - python3
-      - python3-pip
-      - python3-apt
-      - curl
-      - git
-    users:
-      - name: ${var.admin_username}
-        sudo: ALL=(ALL) NOPASSWD:ALL
-        groups: sudo
-        shell: /bin/bash
-        ssh_authorized_keys:
-          - ${trimspace(data.local_file.ssh_pubkey.content)}
-    ssh_pwauth: ${local.ssh_pwauth}
-    write_files:
-      - path: /etc/motd
-        permissions: "0644"
-        content: |
-          Managed by Terraform · Ready for Ansible
-    runcmd:
-      - [ bash, -lc, "ufw disable || true" ]
-  YAML
-}
 
 ############################
 # VM
@@ -173,7 +165,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
 
   admin_ssh_key {
     username   = var.admin_username
-    public_key = trimspace(data.local_file.ssh_pubkey.content)
+    public_key = local.ssh_pubkey
   }
 
   os_disk {
