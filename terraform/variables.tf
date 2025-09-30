@@ -1,17 +1,41 @@
-variable "project"        { type = string  default = "python-ai" }
-variable "location"       { type = string  default = "eastus" }
+############################
+# General
+############################
+variable "project" { 
+  type = string  
+  default = "python-ai" 
+  }
+
+variable "location" { 
+  type = string  
+  default = "eastus" 
+  }
 
 ############################
 # Network
 ############################
-variable "vnet_cidr"      { type = string  default = "10.10.0.0/16" }
-variable "subnet_cidr"    { type = string  default = "10.10.1.0/24" }
+variable "vnet_cidr"      { 
+  type = string  
+  default = "10.10.0.0/16" 
+  }
+
+variable "subnet_cidr"    { 
+  type = string  
+  default = "10.10.1.0/24" 
+  }
 
 ############################
 # VM
 ############################
-variable "vm_size"        { type = string  default = "Standard_B2s" }
-variable "admin_username" { type = string  default = "psubedi" }
+variable "vm_size"        { 
+  type = string  
+  default = "Standard_B2s" 
+  }
+
+variable "admin_username" { 
+  type = string  
+  default = "psubedi" 
+  }
 
 variable "admin_password" {
   description = "admin password for VM. If null, password auth disabled."
