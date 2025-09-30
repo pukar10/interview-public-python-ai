@@ -51,8 +51,8 @@ variable "ssh_public_key_path" {
 }
 
 # In prod, restrict to your IP (e.g., 203.0.113.45/32)
-#variable "allow_source_cidr" {
-#  description = "CIDR allowed for SSH/HTTP/HTTPS."
-#  type        = string
-#  default     = "0.0.0.0/0"
-#}
+variable "allow_source_cidr" {
+  description = "CIDR allowed for SSH/HTTP/HTTPS."
+  type        = string
+  default     = "0.0.0.0/0"
+}
