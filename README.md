@@ -79,3 +79,15 @@ cd frontend && npx kubb
 ```
 
 version: 0.1.5 <!-- x-release-please-version -->
+
+
+# Deployment Steps
+
+Deploy infrastructure
+
+1. `terraform init`
+2. `terraform validate`
+3. `terraform apply`
+
+Configure VMs
+
