@@ -1,6 +1,11 @@
 ############################
 # General
 ############################
+variable "subscription_id" {
+  type        = string
+  description = "Azure subscription GUID to deploy into"
+}
+
 variable "project" {
   type    = string
   default = "python-ai"
