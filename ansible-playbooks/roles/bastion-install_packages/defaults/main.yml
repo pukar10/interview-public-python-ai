@@ -1,0 +1,7 @@
+# Versions
+kubectl_version: "v1.34.1"
+yq_version: "v4.44.3"
+
+# Paths
+kubectl_path: "/usr/local/bin/kubectl"
+yq_path: "/usr/local/bin/yq"
