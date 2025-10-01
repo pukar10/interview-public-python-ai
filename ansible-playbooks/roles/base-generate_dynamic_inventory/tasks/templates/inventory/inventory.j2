@@ -1,7 +1,7 @@
 [local]
 localhost ansible_connection=local
 
-[bastion]
+[bastions]
 {% for b in bastions %}
 {{ b.hostname }} ansible_host={{ b.ip }}
 {% endfor %}
