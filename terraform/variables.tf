@@ -39,7 +39,7 @@ variable "vm_size" {
 
 variable "admin_username" {
   type    = string
-  default = "psubedi"
+  default = "demouser"
 }
 
 variable "admin_password" {
