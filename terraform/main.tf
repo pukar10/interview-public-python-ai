@@ -10,6 +10,7 @@ locals {
     package_update: true
     package_upgrade: false
     packages:
+      - ca-certificates
       - python3
       - python3-pip
       - curl
