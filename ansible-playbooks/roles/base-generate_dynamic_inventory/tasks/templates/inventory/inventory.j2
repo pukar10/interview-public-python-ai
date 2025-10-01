@@ -1,11 +1,20 @@
 [local]
 localhost ansible_connection=local
 
+[bastion]
+{% for b in bastions %}
+{{ b.hostname }} ansible_host={{ b.ip }}
+{% endfor %}
+
 [k8_nodes]
 {% for vm in vms %}
 {{ vm.hostname }} ansible_host={{ vm.ip }}
 {% endfor %}
 
-[k8_nodes:vars]
+[ssh_hosts:children]
+k8_nodes
+bastion
+
+[ssh_hosts:vars]
 ansible_user=demouser
 ansible_connection=ssh

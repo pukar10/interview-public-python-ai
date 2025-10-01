@@ -30,7 +30,18 @@ variable "subnet_cidr" {
 }
 
 ############################
-# VM
+# Bastion
+############################
+variable "bastion_vm_size" { 
+  default = "Standard_B1s" 
+  }
+  
+variable "bastion_admin_username" { 
+  default = "demouser" 
+  }
+
+############################
+# VMs
 ############################
 variable "vm_size" {
   type    = string
