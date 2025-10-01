@@ -1,7 +1,7 @@
-k8_nodes:
-  - ip: <NODE_IP>
-    hostname: <NODE_HOSTNAME>
-
 bastions:
   - ip: <BASTION_IP>
     hostname: <BASTION_HOSTNAME>
+
+k8_nodes:
+  - ip: <NODE_IP>
+    hostname: <NODE_HOSTNAME>
