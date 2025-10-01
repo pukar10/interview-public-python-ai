@@ -1,6 +1,7 @@
 # Ansible
 .ansible/
 ansible-playbooks/inventory/inventory
+ansible-playbooks/group_vars/all/configuration.yml
 
 # Terraform
 **/.terraform/*

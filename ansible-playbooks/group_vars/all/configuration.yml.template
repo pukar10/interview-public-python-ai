@@ -1,0 +1,3 @@
+vms:
+  - ip: <IP>
+    hostname: <HOSTNAME>

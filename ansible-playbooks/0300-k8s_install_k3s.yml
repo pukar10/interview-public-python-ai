@@ -1,5 +1,5 @@
 - name: Install hybrid k3s on PRIMARY node
-  hosts: "k8s_nodes[0]"
+  hosts: "k8_nodes[0]"
   gather_facts: false
   become: true
   roles:
