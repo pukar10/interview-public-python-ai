@@ -1,5 +1,6 @@
 # Ansible
 .ansible/
+ansible-playbooks/inventory/inventory
 
 # Terraform
 **/.terraform/*
