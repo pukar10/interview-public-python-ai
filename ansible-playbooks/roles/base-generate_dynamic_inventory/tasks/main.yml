@@ -1,0 +1,7 @@
+---
+- name: Write inventory
+  template:
+    src: "inventory/inventory.j2"
+    dest: "{{ playbook_dir }}/inventory/inventory"
+
+- meta: refresh_inventory

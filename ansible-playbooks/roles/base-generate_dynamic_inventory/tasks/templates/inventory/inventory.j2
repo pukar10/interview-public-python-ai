@@ -1,0 +1,11 @@
+[local]
+localhost ansible_connection=local
+
+[k8_nodes]
+{% for vm in vms %}
+{{ vm.hostname }} ansible_host={{ vm.ip }}
+{% endfor %}
+
+[k3_nodes:vars]
+ansible_user=psubedi
+ansible_connection=ssh

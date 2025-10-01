@@ -1,0 +1,5 @@
+- name: Generate inventory file
+  hosts: local
+  gather_facts: false
+  roles:
+    - base-generate_dynamic_inventory
