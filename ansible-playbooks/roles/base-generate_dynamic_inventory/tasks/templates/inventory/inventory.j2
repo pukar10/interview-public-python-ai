@@ -7,8 +7,8 @@ localhost ansible_connection=local
 {% endfor %}
 
 [k8_nodes]
-{% for vm in vms %}
-{{ vm.hostname }} ansible_host={{ vm.ip }}
+{% for n in k8_nodes %}
+{{ n.hostname }} ansible_host={{ n.ip }}
 {% endfor %}
 
 [ssh_hosts:children]
