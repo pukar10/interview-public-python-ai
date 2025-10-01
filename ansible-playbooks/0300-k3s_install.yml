@@ -3,7 +3,7 @@
   gather_facts: false
   become: true
   roles:
-    - k8s_install_k3s
+    - k8s-install_k3s
 
 - name: Verify k3s install
   hosts: k8_nodes
