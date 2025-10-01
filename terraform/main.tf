@@ -226,6 +226,10 @@ resource "azurerm_linux_virtual_machine" "bastion" {
   custom_data = base64encode(local.cloud_init)
 
   tags = { project = var.project }
+
+  depends_on = [
+    azurerm_network_interface_security_group_association.bastion_nic_nsg
+  ]
 }
 
 ############################
@@ -267,4 +271,8 @@ resource "azurerm_linux_virtual_machine" "vm" {
   custom_data = base64encode(local.cloud_init)
 
   tags = { project = var.project }
+
+  depends_on = [
+    azurerm_network_interface_security_group_association.nic_nsg
+  ]
 }

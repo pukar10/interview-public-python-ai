@@ -1,5 +1,5 @@
-- name: Setup local dev env
-  hosts: localhost
+- name: Setup bastion environment
+  hosts: bastions
   gather_facts: false
   roles:
     - k8s-pull_kubeconfig
