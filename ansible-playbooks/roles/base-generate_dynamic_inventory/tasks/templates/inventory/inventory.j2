@@ -6,6 +6,6 @@ localhost ansible_connection=local
 {{ vm.hostname }} ansible_host={{ vm.ip }}
 {% endfor %}
 
-[k3_nodes:vars]
+[k8_nodes:vars]
 ansible_user=psubedi
 ansible_connection=ssh
