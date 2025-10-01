@@ -1,0 +1,5 @@
+- name: Setup local dev env
+  hosts: localhost
+  gather_facts: false
+  roles:
+    - k8s-pull_kubeconfig
