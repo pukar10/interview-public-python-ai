@@ -1,5 +1,6 @@
 - name: Setup bastion environment
   hosts: bastions
   gather_facts: false
+  become: true
   roles:
-    - 
+    - bastion-install_packages

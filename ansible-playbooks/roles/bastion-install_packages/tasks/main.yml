@@ -1,0 +1,53 @@
+# Azure CLI
+- name: Add Microsoft GPG key (Azure CLI)
+  apt_key:
+    url: https://packages.microsoft.com/keys/microsoft.asc
+    state: present
+
+- name: Add Azure CLI apt repository
+  apt_repository:
+    repo: "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ {{ ansible_distribution_release }} main"
+    state: present
+    filename: azure-cli
+
+- name: Install Azure CLI
+  apt:
+    name: "{{ azure_cli_package }}"
+    state: present
+    update_cache: true
+
+# Ansible
+- name: Install Ansible from Ubuntu repo
+  when: install_ansible
+  apt:
+    name: ansible
+    state: present
+    update_cache: true
+
+# Kubectl
+- name: Download kubectl {{ kubectl_version }}
+  get_url:
+    url: "https://dl.k8s.io/release/{{ kubectl_version }}/bin/linux/amd64/kubectl"
+    dest: "{{ kubectl_path }}"
+    mode: "0755"
+  register: kubectl_dl
+
+- name: Verify kubectl is executable
+  file:
+    path: "{{ kubectl_path }}"
+    mode: "0755"
+    state: file
+
+# yq (mikefarah)
+- name: Download yq {{ yq_version }}
+  get_url:
+    url: "https://github.com/mikefarah/yq/releases/download/{{ yq_version }}/yq_linux_amd64"
+    dest: "{{ yq_path }}"
+    mode: "0755"
+  register: yq_dl
+
+- name: Verify yq is executable
+  file:
+    path: "{{ yq_path }}"
+    mode: "0755"
+    state: file
