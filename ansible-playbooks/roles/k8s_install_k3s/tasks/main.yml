@@ -1,0 +1,26 @@
+- name: Ensure curl is present
+  ansible.builtin.apt:
+    name: curl
+    state: present
+    update_cache: true
+
+- name: Install K3s server on PRIMARY node (cluster-init)
+  ansible.builtin.shell: |
+    set -e
+    curl -sfL https://get.k3s.io | \
+      INSTALL_K3S_EXEC="server --cluster-init --write-kubeconfig-mode 644" \
+      sh -s -
+  args:
+    creates: /etc/rancher/k3s/k3s.yaml
+
+- name: Enable & start k3s
+  ansible.builtin.systemd:
+    name: k3s
+    enabled: true
+    state: started
+
+- name: Wait for kubeconfig
+  wait_for:
+    path: /etc/rancher/k3s/k3s.yaml
+    state: present
+    search_regex: '^clusters:'
