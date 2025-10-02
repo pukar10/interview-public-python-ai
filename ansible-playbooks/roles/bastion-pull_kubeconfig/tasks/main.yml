@@ -1,0 +1,33 @@
+- name: Read kubeconfig from K3s server
+  become: true
+  ansible.builtin.slurp:
+    src: "/etc/rancher/k3s/k3s.yaml"
+  register: kubeconfig_raw
+  delegate_to: "{{ groups['k8_nodes'][0] }}"
+
+- name: Parse kubeconfig text
+  ansible.builtin.set_fact:
+    kubeconfig_text: "{{ kubeconfig_raw.content | b64decode }}"
+
+- name: Ensure ~/.kube dir exists
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.kube"
+    state: directory
+    mode: "0700"
+
+- name: Copy kubeconfig to bastion
+  ansible.builtin.copy:
+    dest: "{{ ansible_env.HOME }}/.kube/config"
+    mode: "0600"
+    content: "{{ kubeconfig_raw.content | b64decode }}"
+
+- name: Gather facts on K3s node
+  setup:
+  delegate_to: "{{ groups['k8_nodes'][0] }}"
+  delegate_facts: true
+
+- name: Update kubeconfig with correct server IP
+  ansible.builtin.replace:
+    path: "{{ ansible_env.HOME }}/.kube/config"
+    regexp: "server: https://127.0.0.1:6443"
+    replace: "server: https://{{ hostvars[groups['k8_nodes'][0]].ansible_default_ipv4.address }}:6443"
