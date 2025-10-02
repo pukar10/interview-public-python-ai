@@ -1,73 +1,14 @@
 # Azure CLI
-- name: Add Microsoft GPG key (Azure CLI)
-  apt_key:
-    url: https://packages.microsoft.com/keys/microsoft.asc
-    state: present
 
-- name: Add Azure CLI apt repository
-  apt_repository:
-    repo: "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ {{ ansible_distribution_release }} main"
-    state: present
-    filename: azure-cli
-
-- name: Install Azure CLI
-  apt:
-    name: "azure-cli"
-    state: present
-    update_cache: true
 
 # Ansible
-- name: Install Ansible from Ubuntu repo
-  apt:
-    name: ansible
-    state: present
-    update_cache: true
+
 
 # Kubectl
-- name: Download kubectl {{ kubectl_version }}
-  get_url:
-    url: "https://dl.k8s.io/release/{{ kubectl_version }}/bin/linux/amd64/kubectl"
-    dest: "{{ kubectl_path }}"
-    mode: "0755"
-  register: kubectl_dl
 
-- name: Verify kubectl is executable
-  file:
-    path: "{{ kubectl_path }}"
-    mode: "0755"
-    state: file
 
 # yq (mikefarah)
-- name: Download yq {{ yq_version }}
-  get_url:
-    url: "https://github.com/mikefarah/yq/releases/download/{{ yq_version }}/yq_linux_amd64"
-    dest: "{{ yq_path }}"
-    mode: "0755"
-  register: yq_dl
 
-- name: Verify yq is executable
-  file:
-    path: "{{ yq_path }}"
-    mode: "0755"
-    state: file
 
 # Helm
-- name: Download Helm install script
-  ansible.builtin.get_url:
-    url: https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-    dest: /tmp/get-helm-3.sh
-    mode: "0755"
 
-- name: Run Helm install script
-  ansible.builtin.command: /tmp/get-helm-3.sh
-  args:
-    creates: /usr/local/bin/helm
-
-- name: Verify Helm installation
-  ansible.builtin.command: helm version --short
-  register: helm_version
-  changed_when: false
-
-- name: Show Helm version
-  ansible.builtin.debug:
-    msg: "Helm installed: {{ helm_version.stdout }}"

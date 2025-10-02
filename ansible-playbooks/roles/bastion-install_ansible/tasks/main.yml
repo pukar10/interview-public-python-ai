@@ -1,0 +1,6 @@
+---
+- name: Install Ansible from Ubuntu repo
+  apt:
+    name: ansible
+    state: present
+    update_cache: true

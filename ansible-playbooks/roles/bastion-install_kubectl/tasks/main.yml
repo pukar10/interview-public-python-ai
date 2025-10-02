@@ -1,0 +1,12 @@
+- name: Download kubectl {{ kubectl_version }}
+  get_url:
+    url: "https://dl.k8s.io/release/{{ kubectl_version }}/bin/linux/amd64/kubectl"
+    dest: "{{ kubectl_path }}"
+    mode: "0755"
+  register: kubectl_dl
+
+- name: Verify kubectl is executable
+  file:
+    path: "{{ kubectl_path }}"
+    mode: "0755"
+    state: file

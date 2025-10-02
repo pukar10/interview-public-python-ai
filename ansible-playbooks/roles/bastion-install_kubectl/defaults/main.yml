@@ -1,0 +1,3 @@
+kubectl_version: "v1.34.1"
+
+kubectl_path: "/usr/local/bin/kubectl"

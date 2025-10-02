@@ -1,0 +1,13 @@
+---
+- name: Download yq {{ yq_version }}
+  get_url:
+    url: "https://github.com/mikefarah/yq/releases/download/{{ yq_version }}/yq_linux_amd64"
+    dest: "{{ yq_path }}"
+    mode: "0755"
+  register: yq_dl
+
+- name: Verify yq is executable
+  file:
+    path: "{{ yq_path }}"
+    mode: "0755"
+    state: file
