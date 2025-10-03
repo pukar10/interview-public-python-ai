@@ -1,0 +1,61 @@
+---
+- name: apt-get update
+  shell: sudo apt-get update
+
+- name: Install prerequisite packages
+  ansible.builtin.apt:
+    name:
+      - ca-certificates
+      - curl
+      - gnupg
+    state: present
+    update_cache: yes
+
+- name: Ensure /etc/apt/keyrings exists
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: "0755"
+
+- name: Download Docker GPG key
+  shell: sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+
+- name: Ensure Docker GPG key is world-readable
+  shell: sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+- name: Add Docker apt repository
+  shell: |
+    echo \
+      "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+      $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+      sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+- name: Install Docker packages
+  ansible.builtin.apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+    state: present
+    update_cache: yes
+
+- name: Add user to docker group
+  ansible.builtin.user:
+    name: "{{ ansible_user }}"
+    groups: docker
+    append: true
+
+- name: Install Docker Compose plugin
+  become: true
+  ansible.builtin.apt:
+    name: docker-compose-plugin
+    state: present
+    update_cache: yes
+
+- name: Run hello-world to validate install
+  ansible.builtin.command: docker run --rm hello-world
+  register: docker_hello
+  changed_when: false
+  failed_when: docker_hello.rc != 0
