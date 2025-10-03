@@ -84,5 +84,7 @@ version: 0.1.5 <!-- x-release-please-version -->
 # Deployment Steps
 
 1. Deploy infrastructure via Terraform
-2. Deploy VM(s) and k8s cluster
+2. Configure VM(s) and install k8s using ansible-playbooks
+3. Deploy K8s resouces (frontend/backend/postgres/ollama) via `kubectl apply` (Upgrade this to use Helm)
 
+* Deploy ArgoCD to manage the k8s resources and implement a true gitOps first deployment.
