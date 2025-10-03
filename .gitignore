@@ -11,6 +11,7 @@ crash.log
 crash.*.log
 .terraformrc
 terraform.rc
+terraform.tfvars
 
 # Python
 __pycache__/
