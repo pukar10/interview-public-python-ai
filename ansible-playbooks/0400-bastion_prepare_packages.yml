@@ -3,9 +3,9 @@
   gather_facts: true
   become: true
   roles:
-    # - bastion-install_azure_cli
-    # - bastion-install_ansible
-    # - bastion-install_kubectl
-    # - bastion-install_yq
-    # - bastion-install_helm
+    - bastion-install_azure_cli
+    - bastion-install_ansible
+    - bastion-install_kubectl
+    - bastion-install_yq
+    - bastion-install_helm
     - bastion-install_docker
