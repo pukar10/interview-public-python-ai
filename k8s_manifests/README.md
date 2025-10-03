@@ -1,7 +1,11 @@
 # Deployment Steps
 
+Clone repo
+* `git clone https://github.com/pukar10/interview-public-python-ai.git`
+* `git checkout agnostic`
+
 Deploy all resources
-1. `kubectl apply -k k8s_manifests`
+* `kubectl apply -k k8s_manifests`
 
 Destroy all resources
-1. `kubectl delete -k k8s_manifests`
+* `kubectl delete -k k8s_manifests`
