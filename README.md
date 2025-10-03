@@ -84,8 +84,13 @@ version: 0.1.5 <!-- x-release-please-version -->
 # Deployment Steps
 
 * New commit to `main` will publish a new frontend and backend image to `ghcr.io/pukar10/python-ai-frontend:latest` and `ghcr.io/pukar10/python-ai-backend:latest`
-2. Deploy infrastructure via Terraform
-3. Configure VM(s), bastion, and install k8s using ansible-playbooks
-4. Deploy K8s resouces (frontend/backend/postgres/ollama) via `kubectl apply` (Upgrade this to use Helm)
 
-* Deploy ArgoCD to manage the k8s resources and implement a true gitOps first deployment.
+1. Deploy infrastructure via Terraform
+2. Configure VM(s), bastion, and install k8s using ansible-playbooks
+3. Deploy K8s resouces (frontend/backend/postgres/ollama) via `kubectl apply` (Upgrade this to use Helm)
+
+### To Do
+
+- [ ] Deploy ArgoCD/Flux
+- [ ] Utilize Helm charts to manage k8s resources
+- [ ] Deploy control-plane to manage multiple children clusters
