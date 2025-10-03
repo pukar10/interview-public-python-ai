@@ -1,6 +1,7 @@
 # Deployment Steps
-1. `terraform init`
-2. `terraform validate`
-3. `terraform plan`
-4. `terraform apply`
+1. Fill out variables with required information
+2. `terraform init`
+3. `terraform validate`
+4. `terraform plan`
+5. `terraform apply`
 
