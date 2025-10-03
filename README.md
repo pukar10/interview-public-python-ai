@@ -83,7 +83,7 @@ version: 0.1.5 <!-- x-release-please-version -->
 
 # Deployment Steps
 
-1. New commit to `main` will publish a new frontend and backend image to `ghcr.io/pukar10/python-ai-frontend:latest` and `ghcr.io/pukar10/python-ai-backend:latest`
+* New commit to `main` will publish a new frontend and backend image to `ghcr.io/pukar10/python-ai-frontend:latest` and `ghcr.io/pukar10/python-ai-backend:latest`
 2. Deploy infrastructure via Terraform
 3. Configure VM(s), bastion, and install k8s using ansible-playbooks
 4. Deploy K8s resouces (frontend/backend/postgres/ollama) via `kubectl apply` (Upgrade this to use Helm)
